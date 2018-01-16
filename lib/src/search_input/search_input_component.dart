@@ -10,5 +10,10 @@ import 'package:angular_components/angular_components.dart';
   ]
 )
 class SearchInputComponent {
+  String newQuery = '';
 
+  void add() {
+    print(newQuery);
+    newQuery = '';
+  }
 }
