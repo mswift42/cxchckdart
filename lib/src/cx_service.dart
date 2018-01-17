@@ -5,13 +5,10 @@ import 'dart:async';
 
 @Injectable()
 class CxService {
-  String query;
-  String location;
 
-  CxService(this.query, this.location);
 
-  String queryUrl() {
-    return 'https://uk.webuy.com/search/index.php?stext=${query}section=&rad_which_stock=3&refinebystore=${location}';
+  String queryUrl(String query, String location) {
+    return 'https://uk.webuy.com/search/index.php?stext=${query}&section=&rad_which_stock=3&refinebystore=${location}';
   }
 
 
