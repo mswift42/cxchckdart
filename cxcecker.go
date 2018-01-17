@@ -14,6 +14,8 @@ func init() {
 }
 
 func getResults(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Content-Type", "text/html;charset=utf8")
+	// w.Header().Set("Access-Control-Allow-Origin", "*")
 	query := r.FormValue("query")
 	location := r.FormValue("location")
 	url := "https://uk.webuy.com/search/index.php?stext=" + query + "&section=&rad_which_stock=3&refinebystore=" +
