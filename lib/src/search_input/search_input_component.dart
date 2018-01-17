@@ -13,20 +13,28 @@ import '../cx_service.dart';
   ],
   providers: const [CxService],
 )
-class SearchInputComponent {
+class SearchInputComponent implements OnInit {
   String newQuery = '';
   final CxService _cxService;
 
-  List<Store> storeValues = const [
+  List<Store> storeOptions = const [
     const Store("Rose, Street", "54"),
     const Store("Cameron Toll", "3017")
   ];
+
+  Store activeStore;
+
+  @override
+  ngOnInit() {
+   activeStore = storeOptions[0];
+  }
+
 
   SearchInputComponent(this._cxService);
 
   void add() {
     print(newQuery);
-    print(_cxService.queryUrl(newQuery, "54"));
+    print(_cxService.queryUrl(newQuery, activeStore.identifier));
     newQuery = '';
   }
 }
