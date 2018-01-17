@@ -1,0 +1,35 @@
+application: cxcecker
+version: 1
+runtime: go
+api_version: go
+
+handlers:
+        - url: /js
+          static_dir: build/web/js
+
+        - url: /css
+          static_dir: build/web/css
+
+        - url: /main.dart.js
+          static_files: build/web/main.dart.js
+          upload: build/web/(.*\.js)
+        - url: /favicon.ico
+          static_files: build/web/favicon.ico
+          upload: build/web(.*\.ico)
+        - url: /searchquery
+          script: _go_app
+        - url: /
+          static_files: build/web/index.html
+          upload: build/web/(.*\.html)
+
+skip_files:
+        - ^packages$
+        - packages
+        - build/web/packages
+        - ^tmp$
+        - test
+        - ^test$
+        - ^(.*/)?\.dart
+
+default_expiration: "30d"
+
