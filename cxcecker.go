@@ -2,15 +2,38 @@ package cxcecker
 
 import (
 	"fmt"
-	"io/ioutil"
 	"net/http"
 
+	"github.com/PuerkitoBio/goquery"
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/urlfetch"
 )
 
 func init() {
 	http.HandleFunc("/querycx", getResults)
+}
+
+func newCxDocument(resp *http.Response) (*goquery.Document, error) {
+	doc, err := goquery.NewDocumentFromResponse(resp)
+	if err != nil {
+		return nil, err
+	}
+	return doc, nil
+}
+
+func parseResults(doc *goquery.Document) []string {
+	var results []string
+	doc.Find(".searchRecord img").Each(func(i int, s *goquery.Selection) {
+		results = append(results, s.AttrOr("alt", "no luck"))
+	})
+	return results
+}
+
+type queryResult struct {
+	title       string
+	thumbnail   string
+	price       string
+	description string
 }
 
 func getResults(w http.ResponseWriter, r *http.Request) {
@@ -26,9 +49,10 @@ func getResults(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Fprintf(w, err.Error(), http.StatusInternalServerError)
 	}
-	body, err := ioutil.ReadAll(results.Body)
+	doc, err := newCxDocument(results)
 	if err != nil {
-		http.Error(w, "couldn't get response body", http.StatusInternalServerError)
+		fmt.Fprintf(w, err.Error(), http.StatusInternalServerError)
 	}
-	fmt.Fprintf(w, string(body))
+	res := parseResults(doc)
+	fmt.Fprintf(w, "%v", res)
 }
