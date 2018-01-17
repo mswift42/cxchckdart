@@ -16,7 +16,7 @@ handlers:
         - url: /favicon.ico
           static_files: build/web/favicon.ico
           upload: build/web(.*\.ico)
-        - url: /searchquery
+        - url: /querycx
           script: _go_app
         - url: /
           static_files: build/web/index.html
