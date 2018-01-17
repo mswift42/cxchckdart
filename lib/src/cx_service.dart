@@ -7,10 +7,13 @@ import 'dart:async';
 class CxService {
 
 
-  String queryUrl(String query, String location) {
-    return 'https://uk.webuy.com/search/index.php?stext=${query}&section=&rad_which_stock=3&refinebystore=${location}';
+  Future<String> queryUrl(String query, String location) async {
+    var response = await HttpRequest.getString('http://localhost:4242/querycx?query=${query}&location=${location}');
+    print(response);
+    return response;
   }
-
+  
+  
 
 
 }
