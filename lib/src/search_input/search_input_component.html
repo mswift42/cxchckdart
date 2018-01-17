@@ -4,4 +4,13 @@
                   [(ngModel)]="newQuery"
                   (keyup.enter)="add()">
   </material-input>
+ <h3>Group with preselection</h3>
+ <p><em>using ng-model at group level</em></p>
+ <p>selected: {{ex2SelectedValue}}</p>
+ <material-radio-group [(ngModel)]="selected">
+  <material-radio *ngFor="let option of ex2Options"
+                  [disabled]="option.disabled"
+                  [value]="option">{{option.label}}
+  </material-radio>
+ </material-radio-group>
 </div>
