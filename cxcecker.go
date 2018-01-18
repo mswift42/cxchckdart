@@ -3,6 +3,7 @@ package cxcecker
 import (
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/PuerkitoBio/goquery"
 	"google.golang.org/appengine"
@@ -21,24 +22,34 @@ func newCxDocument(resp *http.Response) (*goquery.Document, error) {
 	return doc, nil
 }
 
-func parseResults(doc *goquery.Document) []string {
-	var results []string
-	doc.Find(".searchRecord img").Each(func(i int, s *goquery.Selection) {
-		results = append(results, s.AttrOr("alt", "no luck"))
+func parseResults(doc *goquery.Document) []*QueryResult {
+	var results []*QueryResult
+	doc.Find(".searchRecord").Each(func(i int, s *goquery.Selection) {
+		title := s.Find("img").AttrOr("alt", "")
+		thumb := s.Find("img").AttrOr("src", "")
+		price := strings.Replace(s.Find("div.priceTxt").First().Text(), "WeSell for", "", -1)
+		res := &QueryResult{title, thumb, price, ""}
+		fmt.Println(price)
+		fmt.Println(res)
+		results = append(results, res)
 	})
 	return results
 }
 
-type queryResult struct {
-	title       string
-	thumbnail   string
-	price       string
-	description string
+type QueryResult struct {
+	Title       string `json:title`
+	Thumbnail   string `json:thumb`
+	Price       string `json:price`
+	Description string `json:description`
+}
+
+func (q *QueryResult) String() string {
+	return fmt.Sprintf("%s\n%s\n%s\n%s", q.Title, q.Thumbnail, q.Price, q.Description)
 }
 
 func getResults(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "text/html;charset=utf8")
-	// w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	query := r.FormValue("query")
 	location := r.FormValue("location")
 	url := "https://uk.webuy.com/search/index.php?stext=" + query + "&section=&rad_which_stock=3&refinebystore=" +
