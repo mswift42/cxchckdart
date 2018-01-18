@@ -1,6 +1,7 @@
 package cxcecker
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"strings"
@@ -65,5 +66,5 @@ func getResults(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, err.Error(), http.StatusInternalServerError)
 	}
 	res := parseResults(doc)
-	fmt.Fprintf(w, "%v", res)
+	json.NewEncoder(w).Encode(res)
 }
