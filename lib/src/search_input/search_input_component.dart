@@ -1,5 +1,6 @@
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
+import 'dart:async';
 
 import '../cx_service.dart';
 
@@ -16,6 +17,7 @@ import '../cx_service.dart';
 class SearchInputComponent implements OnInit {
   String newQuery = '';
   final CxService _cxService;
+  List<Product> results = [];
 
   List<Store> storeOptions = const [
     const Store("Rose, Street", "54"),
@@ -32,12 +34,14 @@ class SearchInputComponent implements OnInit {
 
   SearchInputComponent(this._cxService);
 
-  void add() {
+  Future<Null> add() async {
     print(newQuery);
-    print(_cxService.queryUrl(newQuery, activeStore.identifier));
-    newQuery = '';
+    List<Product> jres = await _cxService.queryUrl(newQuery, activeStore.identifier);
+    results = jres;
+    print(results.map((i) => i.title));
   }
 }
+
 
 class Store {
   final String location;
