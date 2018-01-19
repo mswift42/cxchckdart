@@ -4,6 +4,7 @@
                   [(ngModel)]="newQuery"
                   (keyup.enter)="add()">
   </material-input>
+ <material-button raised (click)="searchButtonClick()">Search</material-button>
  <material-radio-group >
   <material-radio *ngFor="let option of storeOptions"
                   [checked]="option == activeStore"

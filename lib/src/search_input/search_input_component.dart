@@ -40,6 +40,10 @@ class SearchInputComponent implements OnInit {
     results = jres;
     print(results.map((i) => i.title));
   }
+
+  Future<Null> searchButtonClick() async {
+    add();
+  }
 }
 
 
