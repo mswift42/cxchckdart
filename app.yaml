@@ -9,7 +9,9 @@ handlers:
 
         - url: /css
           static_dir: build/web/css
-
+        - url: /styles.css
+          static_files: build/web/styles.css
+          upload: build/web(.*\.css)
         - url: /main.dart.js
           static_files: build/web/main.dart.js
           upload: build/web/(.*\.js)
