@@ -3,6 +3,8 @@ import 'package:angular_components/angular_components.dart';
 import 'dart:async';
 
 import '../cx_service.dart';
+import '../product.dart' show Product;
+import '../result_list/result_list_component.dart';
 
 @Component(
   selector: 'search-input',
@@ -11,6 +13,7 @@ import '../cx_service.dart';
   directives: const [
     materialDirectives,
     CORE_DIRECTIVES,
+    ResultListComponent,
   ],
   providers: const [CxService],
 )
@@ -29,6 +32,7 @@ class SearchInputComponent implements OnInit {
   @override
   ngOnInit() {
    activeStore = storeOptions[0];
+   results = [];
   }
 
 
@@ -42,6 +46,7 @@ class SearchInputComponent implements OnInit {
   }
 
   Future<Null> searchButtonClick() async {
+    results = [];
     add();
   }
 }

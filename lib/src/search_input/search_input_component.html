@@ -13,4 +13,9 @@
    {{option.location}}
   </material-radio>
  </material-radio-group>
+    <material-list *ngFor="let res of results" class="bordered-list" size="large">
+        <p>{{res.title}}</p>
+        <img src="{{res.thumbnail}}" alt="{{res.title}}" />
+        <p>{{res.price}}</p>
+    </material-list>
 </div>
