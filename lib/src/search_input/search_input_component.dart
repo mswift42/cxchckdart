@@ -4,7 +4,6 @@ import 'dart:async';
 
 import '../cx_service.dart';
 import '../product.dart' show Product;
-import '../result_list/result_list_component.dart';
 
 @Component(
   selector: 'search-input',
@@ -13,7 +12,6 @@ import '../result_list/result_list_component.dart';
   directives: const [
     materialDirectives,
     CORE_DIRECTIVES,
-    ResultListComponent,
   ],
   providers: const [CxService],
 )
@@ -42,7 +40,6 @@ class SearchInputComponent implements OnInit {
     print(newQuery);
     List<Product> jres = await _cxService.queryUrl(newQuery, activeStore.identifier);
     results = jres;
-    print(results?.map((i) => i.title));
   }
 
   Future<Null> searchButtonClick() async {
