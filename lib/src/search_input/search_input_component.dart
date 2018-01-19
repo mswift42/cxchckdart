@@ -38,7 +38,7 @@ class SearchInputComponent implements OnInit {
     print(newQuery);
     List<Product> jres = await _cxService.queryUrl(newQuery, activeStore.identifier);
     results = jres;
-    print(results.map((i) => i.title));
+    print(results?.map((i) => i.title));
   }
 
   Future<Null> searchButtonClick() async {
