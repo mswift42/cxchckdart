@@ -14,7 +14,8 @@ class CxService {
   Future<List<Product>> queryUrl(String query, String location) async {
     var trimmed = query.trim().replaceAll(new RegExp(r' '), ",");
     var response = await HttpRequest.getString(
-        'http://localhost:4242/querycx?query=${trimmed}&location=${location}');
+        //'http://localhost:4242/querycx?query=${trimmed}&location=${location}');
+        '/querycx?query=${trimmed}&location=${location}');
     var decoded = JSON.decode(response);
     return decoded?.map((i) => new Product(i["Title"],
             "https://uk.webuy.com" + i["Thumbnail"],
