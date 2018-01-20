@@ -15,11 +15,9 @@
     </material-radio-group>
 </div>
 <div class="resultlist">
-    <material-list *ngFor="let res of results" class="bordered-list" size="large">
-        <material-list-item>
+    <div class="list-item" *ngFor="let res of results" >
         <p>{{res.title}}</p>
         <img src="{{res.thumbnail}}" alt="{{res.title}}"/>
         <p>{{res.price}}</p>
-        </material-list-item>
-    </material-list>
+    </div>
 </div>
