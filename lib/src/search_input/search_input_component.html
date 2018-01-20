@@ -1,21 +1,25 @@
 <div>
- <material-input label="Enter item to search"
-                  autoFocus floatingLabel style="width:80%"
-                  [(ngModel)]="newQuery"
-                  (keyup.enter)="add()">
-  </material-input>
- <material-button raised (click)="searchButtonClick()">Search</material-button>
- <material-radio-group >
-  <material-radio *ngFor="let option of storeOptions"
-                  [checked]="option == activeStore"
-                  [value]="option.location"
-                  (checkedChange)="activeStore = $event  ? option : activeStore">
-   {{option.location}}
-  </material-radio>
- </material-radio-group>
+    <material-input label="Enter item to search"
+                    autoFocus floatingLabel style="width:80%"
+                    [(ngModel)]="newQuery"
+                    (keyup.enter)="add()">
+    </material-input>
+    <material-button raised (click)="searchButtonClick()">Search</material-button>
+    <material-radio-group>
+        <material-radio *ngFor="let option of storeOptions"
+                        [checked]="option == activeStore"
+                        [value]="option.location"
+                        (checkedChange)="activeStore = $event  ? option : activeStore">
+            {{option.location}}
+        </material-radio>
+    </material-radio-group>
+</div>
+<div class="resultlist">
     <material-list *ngFor="let res of results" class="bordered-list" size="large">
+        <material-list-item>
         <p>{{res.title}}</p>
-        <img src="{{res.thumbnail}}" alt="{{res.title}}" />
+        <img src="{{res.thumbnail}}" alt="{{res.title}}"/>
         <p>{{res.price}}</p>
+        </material-list-item>
     </material-list>
 </div>
