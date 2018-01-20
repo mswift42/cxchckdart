@@ -53,7 +53,7 @@ func getResults(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	location := r.FormValue("location")
 	query := r.FormValue("query")
-	url := "https://uk.webuy.com/search/index.php?stext=" + query + "&section=&rad_which_stock=3&refinebystore=" +
+	url := "https://uk.webuy.com/search/index.php?sortOn=sellprice_desc&stext=" + query + "&section=&rad_which_stock=3&refinebystore=" +
 		location
 	ctx := appengine.NewContext(r)
 	client := urlfetch.Client(ctx)
