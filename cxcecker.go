@@ -29,7 +29,8 @@ func parseResults(doc *goquery.Document) []*QueryResult {
 		title := s.Find("img").AttrOr("alt", "")
 		thumb := s.Find("img").AttrOr("src", "")
 		price := strings.Replace(s.Find("div.priceTxt").First().Text(), "WeSell for", "", -1)
-		res := &QueryResult{title, thumb, price, ""}
+		url := s.Find("a").AttrOr("href", "")
+		res := &QueryResult{title, thumb, price, "", url}
 		fmt.Println(price)
 		fmt.Println(res)
 		results = append(results, res)
@@ -42,10 +43,11 @@ type QueryResult struct {
 	Thumbnail   string `json:thumb`
 	Price       string `json:price`
 	Description string `json:description`
+	URL         string `json:url`
 }
 
 func (q *QueryResult) String() string {
-	return fmt.Sprintf("%s\n%s\n%s\n%s", q.Title, q.Thumbnail, q.Price, q.Description)
+	return fmt.Sprintf("%s\n%s\n%s\n%s", q.Title, q.Thumbnail, q.Price, q.Description, q.URL)
 }
 
 func getResults(w http.ResponseWriter, r *http.Request) {
