@@ -19,6 +19,7 @@ class SearchInputComponent implements OnInit {
   String newQuery = '';
   final CxService _cxService;
   List<Product> results = [];
+  bool noResults = false;
 
   List<Store> storeOptions = const [
     const Store("Rose, Street", "54"),
@@ -31,6 +32,7 @@ class SearchInputComponent implements OnInit {
   ngOnInit() {
    activeStore = storeOptions[0];
    results = [];
+   noResults = false;
   }
 
 
@@ -40,6 +42,9 @@ class SearchInputComponent implements OnInit {
     print(newQuery);
     List<Product> jres = await _cxService.queryUrl(newQuery, activeStore.identifier);
     results = jres;
+    if (results.length == 0) {
+      noResults = true;
+    }
   }
 
   Future<Null> searchButtonClick() async {

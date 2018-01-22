@@ -17,7 +17,9 @@
 <div class="resultlist">
     <div class="list-item" *ngFor="let res of results" >
         <p>{{res.title}}</p>
+        <a href="{{res.url}}">
         <img src="{{res.thumbnail}}" alt="{{res.title}}"/>
+        </a>
         <p>{{res.price}}</p>
     </div>
 </div>
