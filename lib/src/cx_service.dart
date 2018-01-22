@@ -19,6 +19,7 @@ class CxService {
     var decoded = JSON.decode(response);
     return decoded?.map((i) => new Product(i["Title"],
             "https://uk.webuy.com" + i["Thumbnail"],
-            i["Price"], i["Description"]));
+            i["Price"], i["Description"],
+        "https://uk.webuy.com" + i["URL"]));
   }
 }
